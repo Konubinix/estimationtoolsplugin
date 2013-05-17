@@ -16,7 +16,7 @@ except ImportError:
     def from_timestamp(ts):
         return datetime.fromtimestamp(ts, utc)
 
-AVAILABLE_OPTIONS = ['startdate', 'enddate', 'today', 'width', 'height', 
+AVAILABLE_OPTIONS = ['startdate', 'enddate', 'today', 'width', 'height',
                      'color', 'bgcolor', 'wecolor', 'weekends', 'gridlines',
                      'expected', 'colorexpected', 'title']
 
@@ -128,8 +128,16 @@ def execute_query(env, req, query_args):
     # set maximum number of returned tickets to 0 to get all tickets at once
     query_args['max'] = 0
     # urlencode the args, converting back a few vital exceptions:
+    # see the authorized fields in the query language in
+    # http://trac.edgewall.org/wiki/TracQuery#QueryLanguage
     query_string = unicode_urlencode(query_args)\
                         .replace('%21=', '!=')\
+                        .replace('%21%7E=', '!~=')\
+                        .replace('%7E=', '~=')\
+                        .replace('%5E=', '^=')\
+                        .replace('%24=', '$=')\
+                        .replace('%21%5E=', '!^=')\
+                        .replace('%21%24=', '!$=')\
                         .replace('%7C', '|')\
                         .replace('+', ' ')\
                         .replace('%23', '#')\
