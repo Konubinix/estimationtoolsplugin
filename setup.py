@@ -8,7 +8,7 @@ from pkg_resources import parse_version
 
 
 name = 'EstimationTools'
-version = '0.4.7-slo'
+version = '0.4.8-slo'
 min_trac = '0.11.3'
 try:
     import trac
