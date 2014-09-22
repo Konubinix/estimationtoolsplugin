@@ -142,7 +142,8 @@ def execute_query(env, req, query_args):
                         .replace('+', ' ')\
                         .replace('%23', '#')\
                         .replace('%28', '(')\
-                        .replace('%29', ')')
+                        .replace('%29', ')')\
+                        .replace('%2F', '/')
     env.log.debug("query_string: %s" % query_string)
     query = Query.from_string(env, query_string)
 
